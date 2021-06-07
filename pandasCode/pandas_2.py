@@ -24,5 +24,6 @@ small_range=list(range(5))
 subset3=df.iloc[[0,99,999],0:6:2]
 grape_thing=subset1.groupby('continent')['lifeExp'].nunique()
 
-plt.plot(grape_thing)
+'''plt.plot(grape_thing)
 plt.show()
+'''

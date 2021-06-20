@@ -1,0 +1,447 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.0"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python390jvsc74a57bd0aee8b7b246df8f9039afb4144a1f6fd8d2ca17a180786b69acc140d282b71a49",
+   "display_name": "Python 3.9.0 64-bit"
+  },
+  "metadata": {
+   "interpreter": {
+    "hash": "aee8b7b246df8f9039afb4144a1f6fd8d2ca17a180786b69acc140d282b71a49"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd\n",
+    "\n",
+    "df1=pd.read_csv(\"concat_1.csv\")\n",
+    "df2=pd.read_csv(\"concat_2.csv\")\n",
+    "df3=pd.read_csv(\"concat_3.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "     A    B    C    D\n0   a0   b0   c0   d0\n1   a1   b1   c1   d1\n2   a2   b2   c2   d2\n3   a3   b3   c3   d3\n0   a4   b4   c4   d4\n1   a5   b5   c5   d5\n2   a6   b6   c6   d6\n3   a7   b7   c7   d7\n0   a8   b8   c8   d8\n1   a9   b9   c9   d9\n2  a10  b10  c10  d10\n3  a11  b11  c11  d11\n"
+     ]
+    }
+   ],
+   "source": [
+    "row_concat = pd.concat([df1,df2,df3])\n",
+    "\n",
+    "print(row_concat)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "A    a3\nB    b3\nC    c3\nD    d3\nName: 3, dtype: object\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(row_concat.iloc[3,])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "new_row_series = pd.Series([\"n1\",\"n2\",\"n3\",\"n4\"])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "     A    B    C    D    0\n0   a0   b0   c0   d0  NaN\n1   a1   b1   c1   d1  NaN\n2   a2   b2   c2   d2  NaN\n3   a3   b3   c3   d3  NaN\n0  NaN  NaN  NaN  NaN   n1\n1  NaN  NaN  NaN  NaN   n2\n2  NaN  NaN  NaN  NaN   n3\n3  NaN  NaN  NaN  NaN   n4\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(pd.concat([df1,new_row_series]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "new_row_df= pd.DataFrame([['n1','n2','n3','n4']],columns=['A','B','C','D'])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    A   B   C   D\n0  a0  b0  c0  d0\n1  a1  b1  c1  d1\n2  a2  b2  c2  d2\n3  a3  b3  c3  d3\n0  n1  n2  n3  n4\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(pd.concat([df1,new_row_df]))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "      A    B    C    D\n0    a0   b0   c0   d0\n1    a1   b1   c1   d1\n2    a2   b2   c2   d2\n3    a3   b3   c3   d3\n4    a4   b4   c4   d4\n5    a5   b5   c5   d5\n6    a6   b6   c6   d6\n7    a7   b7   c7   d7\n8    a8   b8   c8   d8\n9    a9   b9   c9   d9\n10  a10  b10  c10  d10\n11  a11  b11  c11  d11\n"
+     ]
+    }
+   ],
+   "source": [
+    "row_concat_i=pd.concat([df1,df2,df3],ignore_index=True)\n",
+    "print(row_concat_i)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    A   B   C   D   A   B   C   D    A    B    C    D\n0  a0  b0  c0  d0  a4  b4  c4  d4   a8   b8   c8   d8\n1  a1  b1  c1  d1  a5  b5  c5  d5   a9   b9   c9   d9\n2  a2  b2  c2  d2  a6  b6  c6  d6  a10  b10  c10  d10\n3  a3  b3  c3  d3  a7  b7  c7  d7  a11  b11  c11  d11\n"
+     ]
+    }
+   ],
+   "source": [
+    "col_concat=pd.concat([df1,df2,df3],axis=1)\n",
+    "print(col_concat)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    A   A    A\n0  a0  a4   a8\n1  a1  a5   a9\n2  a2  a6  a10\n3  a3  a7  a11\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(col_concat[\"A\"])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "col_concat[\"new_col_list\"]=['n1','n2','n3','n4']"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    A   B   C   D   A   B   C   D    A    B    C    D new_col_list\n0  a0  b0  c0  d0  a4  b4  c4  d4   a8   b8   c8   d8           n1\n1  a1  b1  c1  d1  a5  b5  c5  d5   a9   b9   c9   d9           n2\n2  a2  b2  c2  d2  a6  b6  c6  d6  a10  b10  c10  d10           n3\n3  a3  b3  c3  d3  a7  b7  c7  d7  a11  b11  c11  d11           n4\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(col_concat)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "col_concat=pd.concat([df1,df2,df3],axis=1,ignore_index=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "   0   1   2   3   4   5   6   7    8    9    10   11\n0  a0  b0  c0  d0  a4  b4  c4  d4   a8   b8   c8   d8\n1  a1  b1  c1  d1  a5  b5  c5  d5   a9   b9   c9   d9\n2  a2  b2  c2  d2  a6  b6  c6  d6  a10  b10  c10  d10\n3  a3  b3  c3  d3  a7  b7  c7  d7  a11  b11  c11  d11\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(col_concat)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 19,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df1.columns=[\"A\",\"B\",\"C\",\"D\"]\n",
+    "df2.columns=['E','F','G','H']\n",
+    "df3.columns=['A','C','F','H']\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 20,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "     A    B    C    D    E    F    G    H\n0   a0   b0   c0   d0  NaN  NaN  NaN  NaN\n1   a1   b1   c1   d1  NaN  NaN  NaN  NaN\n2   a2   b2   c2   d2  NaN  NaN  NaN  NaN\n3   a3   b3   c3   d3  NaN  NaN  NaN  NaN\n0  NaN  NaN  NaN  NaN   a4   b4   c4   d4\n1  NaN  NaN  NaN  NaN   a5   b5   c5   d5\n2  NaN  NaN  NaN  NaN   a6   b6   c6   d6\n3  NaN  NaN  NaN  NaN   a7   b7   c7   d7\n0   a8  NaN   b8  NaN  NaN   c8  NaN   d8\n1   a9  NaN   b9  NaN  NaN   c9  NaN   d9\n2  a10  NaN  b10  NaN  NaN  c10  NaN  d10\n3  a11  NaN  b11  NaN  NaN  c11  NaN  d11\n"
+     ]
+    }
+   ],
+   "source": [
+    "row_concat=pd.concat([df1,df2,df3])\n",
+    "print(row_concat)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "Empty DataFrame\nColumns: []\nIndex: [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(pd.concat([df1,df2,df3],join='inner'))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 25,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "df1.index=[0,1,2,3]\n",
+    "df2.index=[4,5,6,7]\n",
+    "df3.index=[0,2,5,7]\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    A   B   C   D\n0  a0  b0  c0  d0\n1  a1  b1  c1  d1\n2  a2  b2  c2  d2\n3  a3  b3  c3  d3\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df1)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    E   F   G   H\n4  a4  b4  c4  d4\n5  a5  b5  c5  d5\n6  a6  b6  c6  d6\n7  a7  b7  c7  d7\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(df2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 33,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "person=pd.read_csv('data/survey_person.csv')\n",
+    "site=pd.read_csv('data/survey_site.csv')\n",
+    "survey=pd.read_csv('data/survey_survey.csv')\n",
+    "visited=pd.read_csv(\"data/survey_visited.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 32,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "      ident   personal    family\n0      dyer    William      Dyer\n1        pb      Frank   Pabodie\n2      lake   Anderson      Lake\n3       roe  Valentina   Roerich\n4  danforth      Frank  Danforth\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(person)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 34,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    name    lat    long\n0   DR-1 -49.85 -128.57\n1   DR-3 -47.15 -126.72\n2  MSK-4 -48.87 -123.40\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(site)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 35,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "   ident   site       dated\n0    619   DR-1  1927-02-08\n1    622   DR-1  1927-02-10\n2    734   DR-3  1939-01-07\n3    735   DR-3  1930-01-12\n4    751   DR-3  1930-02-26\n5    752   DR-3         NaN\n6    837  MSK-4  1932-01-14\n7    844   DR-1  1932-03-22\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(visited)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 36,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    taken person quant  reading\n0     619   dyer   rad     9.82\n1     619   dyer   sal     0.13\n2     622   dyer   rad     7.80\n3     622   dyer   sal     0.09\n4     734     pb   rad     8.41\n5     734   lake   sal     0.05\n6     734     pb  temp   -21.50\n7     735     pb   rad     7.22\n8     735    NaN   sal     0.06\n9     735    NaN  temp   -26.00\n10    751     pb   rad     4.35\n11    751     pb  temp   -18.50\n12    751   lake   sal     0.10\n13    752   lake   rad     2.19\n14    752   lake   sal     0.09\n15    752   lake  temp   -16.00\n16    752    roe   sal    41.60\n17    837   lake   rad     1.46\n18    837   lake   sal     0.21\n19    837    roe   sal    22.50\n20    844    roe   rad    11.25\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(survey)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 43,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "visited_subset=visited.loc[[0,2,6],]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 44,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "   ident   site       dated\n",
+       "0    619   DR-1  1927-02-08\n",
+       "2    734   DR-3  1939-01-07\n",
+       "6    837  MSK-4  1932-01-14"
+      ],
+      "text/html": "<div>\n<style scoped>\n    .dataframe tbody tr th:only-of-type {\n        vertical-align: middle;\n    }\n\n    .dataframe tbody tr th {\n        vertical-align: top;\n    }\n\n    .dataframe thead th {\n        text-align: right;\n    }\n</style>\n<table border=\"1\" class=\"dataframe\">\n  <thead>\n    <tr style=\"text-align: right;\">\n      <th></th>\n      <th>ident</th>\n      <th>site</th>\n      <th>dated</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th>0</th>\n      <td>619</td>\n      <td>DR-1</td>\n      <td>1927-02-08</td>\n    </tr>\n    <tr>\n      <th>2</th>\n      <td>734</td>\n      <td>DR-3</td>\n      <td>1939-01-07</td>\n    </tr>\n    <tr>\n      <th>6</th>\n      <td>837</td>\n      <td>MSK-4</td>\n      <td>1932-01-14</td>\n    </tr>\n  </tbody>\n</table>\n</div>"
+     },
+     "metadata": {},
+     "execution_count": 44
+    }
+   ],
+   "source": [
+    "visited_subset"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ]
+}

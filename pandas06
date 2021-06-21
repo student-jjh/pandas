@@ -1,0 +1,336 @@
+{
+ "metadata": {
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.9.0"
+  },
+  "orig_nbformat": 2,
+  "kernelspec": {
+   "name": "python390jvsc74a57bd0aee8b7b246df8f9039afb4144a1f6fd8d2ca17a180786b69acc140d282b71a49",
+   "display_name": "Python 3.9.0 64-bit"
+  },
+  "metadata": {
+   "interpreter": {
+    "hash": "aee8b7b246df8f9039afb4144a1f6fd8d2ca17a180786b69acc140d282b71a49"
+   }
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2,
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from numpy import NaN,NAN,nan"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "False"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 4
+    }
+   ],
+   "source": [
+    "NaN==True\n",
+    "N==True\n",
+    "#누락값은 말 그대로 데이터 자체가 없다는 표현이기 때문에 자기 자신과 비교해도 FAlse가 나오게 된다"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import pandas as pd"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "True"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 7
+    }
+   ],
+   "source": [
+    "pd.isnull(NAN)\n",
+    "#판다스에 누락값을 확인하는 방법"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "#누락값이 생기는 이유 : 처음부터 누락값이 있는 데이터를 불러오거나, 데이터를 입력, 연결하는 과정에서 생김"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "visited=pd.read_csv(\"data/survey_visited.csv\")\n",
+    "survey=pd.read_csv(\"data/survey_survey.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "   ident   site       dated\n0    619   DR-1  1927-02-08\n1    622   DR-1  1927-02-10\n2    734   DR-3  1939-01-07\n3    735   DR-3  1930-01-12\n4    751   DR-3  1930-02-26\n5    752   DR-3         NaN\n6    837  MSK-4  1932-01-14\n7    844   DR-1  1932-03-22\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(visited)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    taken person quant  reading\n0     619   dyer   rad     9.82\n1     619   dyer   sal     0.13\n2     622   dyer   rad     7.80\n3     622   dyer   sal     0.09\n4     734     pb   rad     8.41\n5     734   lake   sal     0.05\n6     734     pb  temp   -21.50\n7     735     pb   rad     7.22\n8     735    NaN   sal     0.06\n9     735    NaN  temp   -26.00\n10    751     pb   rad     4.35\n11    751     pb  temp   -18.50\n12    751   lake   sal     0.10\n13    752   lake   rad     2.19\n14    752   lake   sal     0.09\n15    752   lake  temp   -16.00\n16    752    roe   sal    41.60\n17    837   lake   rad     1.46\n18    837   lake   sal     0.21\n19    837    roe   sal    22.50\n20    844    roe   rad    11.25\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(survey)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "vs=visited.merge(survey,left_on=\"ident\",right_on='taken')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "    ident   site       dated  taken person quant  reading\n0     619   DR-1  1927-02-08    619   dyer   rad     9.82\n1     619   DR-1  1927-02-08    619   dyer   sal     0.13\n2     622   DR-1  1927-02-10    622   dyer   rad     7.80\n3     622   DR-1  1927-02-10    622   dyer   sal     0.09\n4     734   DR-3  1939-01-07    734     pb   rad     8.41\n5     734   DR-3  1939-01-07    734   lake   sal     0.05\n6     734   DR-3  1939-01-07    734     pb  temp   -21.50\n7     735   DR-3  1930-01-12    735     pb   rad     7.22\n8     735   DR-3  1930-01-12    735    NaN   sal     0.06\n9     735   DR-3  1930-01-12    735    NaN  temp   -26.00\n10    751   DR-3  1930-02-26    751     pb   rad     4.35\n11    751   DR-3  1930-02-26    751     pb  temp   -18.50\n12    751   DR-3  1930-02-26    751   lake   sal     0.10\n13    752   DR-3         NaN    752   lake   rad     2.19\n14    752   DR-3         NaN    752   lake   sal     0.09\n15    752   DR-3         NaN    752   lake  temp   -16.00\n16    752   DR-3         NaN    752    roe   sal    41.60\n17    837  MSK-4  1932-01-14    837   lake   rad     1.46\n18    837  MSK-4  1932-01-14    837   lake   sal     0.21\n19    837  MSK-4  1932-01-14    837    roe   sal    22.50\n20    844   DR-1  1932-03-22    844    roe   rad    11.25\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(vs)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "gapminder=pd.read_csv(\"data/gapminder.tsv\",sep=\"\\t\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 18,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "year\n1952    49.057620\n1957    51.507401\n1962    53.609249\n1967    55.678290\n1972    57.647386\n1977    59.570157\n1982    61.533197\n1987    63.212613\n1992    64.160338\n1997    65.014676\n2002    65.694923\n2007    67.007423\nName: lifeExp, dtype: float64\n"
+     ]
+    }
+   ],
+   "source": [
+    "life_exp=gapminder.groupby(['year'])['lifeExp'].mean()\n",
+    "print(life_exp)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 21,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "y2000=life_exp[life_exp.index>2000]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 22,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "execute_result",
+     "data": {
+      "text/plain": [
+       "year\n",
+       "2002    65.694923\n",
+       "2007    67.007423\n",
+       "Name: lifeExp, dtype: float64"
+      ]
+     },
+     "metadata": {},
+     "execution_count": 22
+    }
+   ],
+   "source": [
+    "y2000"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 23,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "ebola=pd.read_csv(\"data/country_timeseries.csv\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 24,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "Date                   122\nDay                    122\nCases_Guinea            93\nCases_Liberia           83\nCases_SierraLeone       87\nCases_Nigeria           38\nCases_Senegal           25\nCases_UnitedStates      18\nCases_Spain             16\nCases_Mali              12\nDeaths_Guinea           92\nDeaths_Liberia          81\nDeaths_SierraLeone      87\nDeaths_Nigeria          38\nDeaths_Senegal          22\nDeaths_UnitedStates     18\nDeaths_Spain            16\nDeaths_Mali             12\ndtype: int64\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(ebola.count())"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 26,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "Date                     0\nDay                      0\nCases_Guinea            29\nCases_Liberia           39\nCases_SierraLeone       35\nCases_Nigeria           84\nCases_Senegal           97\nCases_UnitedStates     104\nCases_Spain            106\nCases_Mali             110\nDeaths_Guinea           30\nDeaths_Liberia          41\nDeaths_SierraLeone      35\nDeaths_Nigeria          84\nDeaths_Senegal         100\nDeaths_UnitedStates    104\nDeaths_Spain           106\nDeaths_Mali            110\ndtype: int64\n"
+     ]
+    }
+   ],
+   "source": [
+    "num_rows=ebola.shape[0]\n",
+    "num_missing=num_rows-ebola.count()\n",
+    "print(num_missing)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 27,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "         Date  Day  Cases_Guinea  Cases_Liberia  Cases_SierraLeone\n0    1/5/2015  289        2776.0            0.0            10030.0\n1    1/4/2015  288        2775.0            0.0             9780.0\n2    1/3/2015  287        2769.0         8166.0             9722.0\n3    1/2/2015  286           0.0         8157.0                0.0\n4  12/31/2014  284        2730.0         8115.0             9633.0\n5  12/28/2014  281        2706.0         8018.0             9446.0\n6  12/27/2014  280        2695.0            0.0             9409.0\n7  12/24/2014  277        2630.0         7977.0             9203.0\n8  12/21/2014  273        2597.0            0.0             9004.0\n9  12/20/2014  272        2571.0         7862.0             8939.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(ebola.fillna(0).iloc[0:10,0:5])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 30,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "         Date  Day  Cases_Guinea  Cases_Liberia  Cases_SierraLeone\n0    1/5/2015  289        2776.0            NaN            10030.0\n1    1/4/2015  288        2775.0            NaN             9780.0\n2    1/3/2015  287        2769.0         8166.0             9722.0\n3    1/2/2015  286        2769.0         8157.0             9722.0\n4  12/31/2014  284        2730.0         8115.0             9633.0\n5  12/28/2014  281        2706.0         8018.0             9446.0\n6  12/27/2014  280        2695.0         8018.0             9409.0\n7  12/24/2014  277        2630.0         7977.0             9203.0\n8  12/21/2014  273        2597.0         7977.0             9004.0\n9  12/20/2014  272        2571.0         7862.0             8939.0\n"
+     ]
+    }
+   ],
+   "source": [
+    "#fillna 메서드의 경우에는 처리해야 하는 데이터 프레임의 크기가 매우 크고 메모리를 효율적으로 사용해야 하는 경우에 자주 사용함\n",
+    "#fillna 메서드의 method 인잣값을 ffill로 처리하게 되면 누락값이 나타나기 전의 값으로 누락값이 변경되게 됨\n",
+    "#fillna 메서드의 method 인잣값을 bill로 처리하게 되면 누락값이 나타난 이후의 첫번쨰 값으로 앞쪽의 누락값이 모두 변경되게 됨\n",
+    "print(ebola.fillna(method='ffill').iloc[0:10,0:5])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 31,
+   "metadata": {},
+   "outputs": [
+    {
+     "output_type": "stream",
+     "name": "stdout",
+     "text": [
+      "          Date  Day  Cases_Guinea  Cases_Liberia  Cases_SierraLeone  \\\n19  11/18/2014  241        2047.0         7082.0             6190.0   \n\n    Cases_Nigeria  Cases_Senegal  Cases_UnitedStates  Cases_Spain  Cases_Mali  \\\n19           20.0            1.0                 4.0          1.0         6.0   \n\n    Deaths_Guinea  Deaths_Liberia  Deaths_SierraLeone  Deaths_Nigeria  \\\n19         1214.0          2963.0              1267.0             8.0   \n\n    Deaths_Senegal  Deaths_UnitedStates  Deaths_Spain  Deaths_Mali  \n19             0.0                  1.0           0.0          6.0  \n"
+     ]
+    }
+   ],
+   "source": [
+    "ebola_dropna=ebola.dropna()\n",
+    "print(ebola_dropna)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ]
+}
